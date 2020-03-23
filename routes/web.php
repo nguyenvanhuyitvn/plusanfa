@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::group(['prefix' => 'admin', 'middleware'=>'auth:api'], function () {
+Route::group(['prefix' => 'admin', 'middleware'=>'apiCheckLogin'], function () {
     Route::get('/users', 'Users\UsersController@index')->name('users.index');
 });
 

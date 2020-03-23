@@ -12,9 +12,9 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api')->except('logout');
+        // $this->middleware('auth:api')->except('logout');
     }
     public function index(){
-        return view('home');
+        return view('users.list');
     }
 }

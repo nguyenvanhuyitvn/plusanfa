@@ -66,6 +66,7 @@ class LoginController extends Controller
                 $response = $request->getBody()->getContents();
                 $data = collect(\json_decode($response))->toArray();
                 $session = session()->put('token',  $data['success']->token);
+                return redirect()->route('users.index', compact('data'));
             } else {
                 return "Oops!";
             }
