@@ -9,16 +9,25 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('dist/js/bootstrap.min.js') }}" defer></script>
+  
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
+     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap extend-->
+    <link rel="stylesheet" href="{{asset('css/bootstrap-extend.css')}}">
+        
+    <!-- theme style -->
+    <link rel="stylesheet" href="{{asset('css/master_style.css')}}">
+
+    <!-- SoftPro admin skins -->
+    <link rel="stylesheet" href="{{asset('css/skins/_all-skins.css')}}">
+   
+    <!-- SoftPro admin skins -->
+    <link rel="stylesheet" href="{{asset('css/skins/_all-skins.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div id="app">
@@ -77,5 +86,25 @@
             @yield('content')
         </main>
     </div>
+    	<!-- jQuery 3 -->
+	<script src="{{asset('assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js')}}"></script>
+	
+	<!-- fullscreen -->
+	<script src="{{asset('assets/vendor_components/screenfull/screenfull.js')}}"></script>
+	
+	<!-- jQuery UI 1.11.4 -->
+	<script src="{{asset('assets/vendor_components/jquery-ui/jquery-ui.js')}}"></script>
+	
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<script>
+	  $.widget.bridge('uibutton', $.ui.button);
+	</script>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('dist/js/bootstrap.min.js') }}" defer></script>
+	<!-- popper -->
+    <script src="{{asset('assets/vendor_components/popper/dist/popper.min.')}}"></script>
+    <!-- SoftPro admin App -->
+    <script src="{{asset('js/template.js')}}"></script>
 </body>
 </html>

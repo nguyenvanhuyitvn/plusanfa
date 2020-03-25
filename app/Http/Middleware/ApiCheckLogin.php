@@ -15,11 +15,11 @@ class ApiCheckLogin
      */
     public function handle($request, Closure $next)
     {
-       
-        if (session('token')) {
+    //    dd(session('token'));
+        if (!session('token')) {
             return $next($request);
         }
-        return redirect()->route('login');
+        return redirect()->route('users.index');
     }
 }
 

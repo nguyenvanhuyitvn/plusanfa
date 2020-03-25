@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Exceptions\Handler;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Routing\Redirector;
 class LoginController extends Controller
 {
     /*
@@ -37,16 +38,15 @@ class LoginController extends Controller
      *
      * @return void
      */
+    protected $serviceURL;
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->serviceURL = config('api.url');
     }
     public function login(Request $request){
         try{
             $headers = [
-                'Content-Type' => 'application/json, multipart/form-data',
-                'AccessToken' => 'key',
-                'Authorization' => 'Bearer token',
+                'Content-Type' => 'application/json, multipart/form-data'
             ];
             $cookieJar = new CookieJar();
             $client = new \GuzzleHttp\Client([
@@ -61,18 +61,38 @@ class LoginController extends Controller
                 'form_params'=>$myBody,     
                 'cookies' => $cookieJar
             ]);
-           
             if ($request->getStatusCode() == 200) {
                 $response = $request->getBody()->getContents();
                 $data = collect(\json_decode($response))->toArray();
                 $session = session()->put('token',  $data['success']->token);
-                return redirect()->route('users.index', compact('data'));
+                return redirect()->route('users.index');
             } else {
                 return "Oops!";
             }
             
         }catch (\Exception $exception) {
             return 'Caught exception: '. $exception->getMessage();
+        }
+    }
+    public function logout(){
+        $headers = [
+            'Content-Type' => 'application/json, multipart/form-data',
+            'Authorization' => 'Bearer ' . session('token'),
+        ];
+        $client = new \GuzzleHttp\Client([
+            'headers'=> $headers,
+            'timeout' => 3
+        ]);
+        $url = $this->serviceURL."/logout";
+        $myBody['token_push'] = session('token');
+        $request = $client->post($url,  [
+            'form_params'=>$myBody
+        ]);
+        if ($request->getStatusCode() == 200) {
+            session()->flush();	
+            return redirect()->route('login');
+        } else {
+            return "Oops!";
         }
     }
 }

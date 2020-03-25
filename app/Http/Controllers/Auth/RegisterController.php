@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-// use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Http\Request;
 class RegisterController extends Controller
 {
     /*
@@ -62,6 +61,14 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $this->create($request->all());
+
+        return \redirect()->route('register-success');
+    }
     protected function create(array $data)
     {
         // dd($data);
