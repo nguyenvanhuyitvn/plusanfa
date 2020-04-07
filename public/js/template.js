@@ -999,7 +999,19 @@ throw new Error('template requires jQuery')
     $(document).on('click', '.box-btn-slide', function(){
       $(this).toggleClass('rotate-180').parents('.box').find('.box-content, .box-body').slideToggle();
     });
-
+    // $(document).on('click', '.box-slided-up-detail', function(){
+    //   $(this).find('.box-content, .box-body').slideToggle();
+    // });
+    $(function(){
+       $('.box-slided-up-detail').each(function(){
+          $(this).on('click', function(e){
+            $(this).find('.box-content, .box-body').slideToggle();
+          });
+       });
+    });
+    // $(document).on('click', '.box-header', function(){
+    //   $(this).parents('.box').find('.box-content, .box-body').slideToggle();
+    // });
 
 
     // Maximize
@@ -1096,4 +1108,450 @@ throw new Error('template requires jQuery')
               }
       }
   });
+  $("#img-avatar").click(function(){
+      $("#avatar").click();
+  });
  });
+// Location
+ $(function(){
+    var localId;
+    var token = $("#token").val();
+    $( ".btn-location-edit" ).each(function(index) {
+        $(this).on("click", function(e){
+            e.stopPropagation();
+            $('#edit-location-type').html('');
+            localId = $(this).attr('data-id');
+            var urlEdit = 'location/edit/' + localId;
+            urlEdit = urlEdit.replace(':id', localId);
+            urlUpdate = 'location/update/' + localId;
+            locationType = JSON.parse($('#locationTypeJson').val());
+            $.ajax({
+                  url: urlEdit,
+                  type: 'get',
+                  dataType:'json',
+                  success: function(response){
+                      var option='';
+                      $('#edit-location-home-form').attr('action', urlUpdate);
+                      $('#edit_location_name').val(response['location_name']);
+                      $('#edit_location_detail').val(response['detail']);
+                      var type = response["type"]["id_master"];
+                      for(var i=0; i< locationType.length; i++){
+                          if(locationType[i]['id_master'] == type){
+                            option += "<option value=" + locationType[i]['id_master']+" selected>"+locationType[i]['name']+"</option>";
+                          }else{
+                            option += "<option value=" + locationType[i]['id_master']+">"+locationType[i]['name']+"</option>";
+                          }
+                      } 
+                      $('#edit-location-type').append(option);
+                  }
+              });
+          });
+      });
+ });
+
+
+// $(function(){
+//   $( ".btn-location-delete" ).each(function(index) {
+//       $(this).on('click', function (e) {
+//         e.stopPropagation();
+//         enroll_location = $('.enroll-location').val();
+//         console.log(enroll_location);
+//         LocationId= parseInt($(this).attr('data-id'));
+//         console.log(LocationId);
+//         enroll_location = JSON.parse(enroll_location);
+//         var checkDelete;
+//         for(var i=0; i < enroll_location.length; i++){
+//             if(enroll_location[i]['location_id'] == LocationId){
+//                 checkDelete = true;
+//             }
+//             console.log(typeof enroll_location[i]['location_id']);
+//         }
+//         const url = $(this).attr('href');
+//         if(checkDelete){
+//           swal({
+//               title: 'Are you sure?',
+//               text: 'There are the devices in this location and those devices will be permanantly deleted!',
+//               icon: 'warning',
+//               buttons: ["Cancel", "Yes!"],
+//           }).then(function(value) {
+//               if (value) {
+//                 window.location.href = url;
+//               }
+//           });
+//         }else if(!checkDelete){
+//           swal({
+//             title: 'Are you sure?',
+//             text: 'This location will be permanantly deleted!',
+//             icon: 'warning',
+//             buttons: ["Cancel", "Yes!"],
+//           }).then(function(value) {
+//               if (value) {
+//                 window.location.href = url;
+//               }
+//           });
+//         }
+        
+//     });
+//   });
+// });
+
+$(function(){
+   $( ".img-location" ).each(function(index) {
+    $(this).on('click', function (event) {
+      event.preventDefault();
+      $(this).parent().children('.box-slided-up-detail').click();
+    });
+  });
+});
+
+
+// Display Device when clicked to specific Location in next collumn
+ $(function(){
+// Display detail device in right slider when the size of screen is small
+  $( ".location-home-box" ).each(function(index) {
+      $(this).on('click', function (event) {
+        event.preventDefault();
+        // Add border location
+       $('.inner').each(function() { 
+            $(this).click(function(){
+              $('.inner.active-box').removeClass("active-box"); 
+              $(this).addClass("active-box");
+            }); 
+        }); 
+        // ./Add border location
+        $('.device-selected-by-location-home').removeClass('d-none');
+        $('.control-device-screen').addClass('d-none');
+        var locationId= $(this).attr('data-id');
+        var locationName = $(this).children('.inner').children('.location-name-selected').text();
+        console.log(locationName);
+        $('.device-belong-to-location').html('- Khu vực: ' + locationName);
+        var urlGetDeviceByLocationId = 'device/' + locationId;
+        $.ajax({
+          url: urlGetDeviceByLocationId,
+          type: 'get',
+          dataType:'json',
+          success: function(response){
+            var content='';
+            if(response.length > 0 ){
+              for(var i=0; i< response.length; i++){
+                // Device
+                content += '<div class="custom-col-4">';
+                content += '<div class="card device-home-box" data-id="' + response[i]['device_id']['id']  + '" data-toggle=""  data-target="#modal-right">';
+                content += '<img class="card-img-top" src="'+ response[i]['device_id']['type']['icon'] + '" width="35px" height="100px"  alt="device">';
+                content += '<div class="card-body body-device">';
+                content += '<h5 class="card-title text-center device-name-selected">'+ response[i]["nickname_device"] + '</h5>';
+                content += '<p class="card-text text-center"><i class="fas fa-power-off pr-2"></i> <i class="fas fa-power-off pr-2"></i> <i class="fas fa-power-off"></i></p>';
+                content += '</div>';
+                content += '</div>';
+                content += '</div>';
+              }
+          }else{
+                content +='<div class="mr-auto h1">Không có thiết bị nào</div>';
+          }
+            $('.device-selected-by-location-home').html(content);
+          }
+        });
+        });
+    });
+  // $(window).resize(function(){
+  //    if (window.matchMedia('(max-width: 768px)').matches)
+  //     {
+  //         $('.location-home-box').attr('data-toggle','modal');
+  //          $( ".location-home-box" ).each(function(index) {
+  //             $(this).on('click', function (event) {
+  //               event.preventDefault();
+  //               $('.device-selected-by-location-home').removeClass('d-none');
+  //               $('.control-device-screen').addClass('d-none');
+  //               var locationId= $(this).attr('data-id');
+  //               var urlGetDeviceByLocationId = 'device/' + locationId;
+  //               $.ajax({
+  //                 url: urlGetDeviceByLocationId,
+  //                 type: 'get',
+  //                 dataType:'json',
+  //                 success: function(response){
+
+  //                   var content='';
+  //                   if(response.length > 0 ){
+  //                     for(var i=0; i< response.length; i++){
+  //                       // Device
+  //                       content += '<div class="custom-col-4">';
+  //                       content += '<div class="card device-home-box" data-id="' + response[i]['device_id']['id']  + '" data-toggle="" data-target="#modal-right">';
+  //                       content += '<img class="card-img-top" src="'+ response[i]['device_id']['type']['icon'] + '"  alt="device">';
+  //                       content += '<div class="card-body">';
+  //                       content += '<h5 class="card-title text-center">'+ response[i]["nickname_device"] + '</h5>';
+  //                       content += '<p class="card-text text-center"><i class="fas fa-power-off pr-2"></i> <i class="fas fa-power-off pr-2"></i> <i class="fas fa-power-off"></i></p>';
+  //                       content += '</div>';
+  //                       content += '</div>';
+  //                       content += '</div>';
+  //                     }
+  //                 }else{
+  //                       content +='<div class="mr-auto h1">Không có thiết bị nào</div>';
+  //                 }
+  //                 // console.log(content);    
+  //                   $('.modal-right-device-location-append').html(content);
+  //                 }
+  //               });
+  //               });
+  //           });
+  //     }
+  //     else{
+  //       $('.location-home-box').attr('data-toggle','');
+  //         $( ".location-home-box" ).each(function(index) {
+  //           $(this).on('click', function (event) {
+  //             event.preventDefault();
+  //             $('.device-selected-by-location-home').removeClass('d-none');
+  //             $('.control-device-screen').addClass('d-none');
+  //             var locationId= $(this).attr('data-id');
+  //             var urlGetDeviceByLocationId = 'device/' + locationId;
+  //             $.ajax({
+  //               url: urlGetDeviceByLocationId,
+  //               type: 'get',
+  //               dataType:'json',
+  //               success: function(response){
+  //                 var content='';
+  //                 if(response.length > 0 ){
+  //                   for(var i=0; i< response.length; i++){
+  //                     // Device
+  //                     content += '<div class="custom-col-4">';
+  //                     content += '<div class="card device-home-box" data-id="' + response[i]['device_id']['id']  + '">';
+  //                     content += '<img class="card-img-top" src="'+ response[i]['device_id']['type']['icon'] + '"  alt="device">';
+  //                     content += '<div class="card-body">';
+  //                     content += '<h5 class="card-title text-center">'+ response[i]["nickname_device"] + '</h5>';
+  //                     content += '<p class="card-text text-center"><i class="fas fa-power-off pr-2"></i> <i class="fas fa-power-off pr-2"></i> <i class="fas fa-power-off"></i></p>';
+  //                     content += '</div>';
+  //                     content += '</div>';
+  //                     content += '</div>';
+  //                   }
+  //               }else{
+  //                     content +='<div class="mr-auto h1">Không có thiết bị nào</div>';
+  //               }
+  //                 $('.device-selected-by-location-home').html(content);
+  //               }
+  //             });
+  //           });
+  //       });
+  //     }
+  // });
+});
+
+// Display or Hide add location sreen in home screen
+$(function(){
+    $('.btn-add-location-home').click(function(){
+        $('#add-location-home-content').removeClass('d-none');
+        $('#location-home-content').addClass('d-none');
+        $(this).css('display','none');
+        $('.btn-back-location-home').css('display','block');
+        $('.btn-add-location-cancel').removeClass('d-none');
+    });
+    $('.btn-location-edit').click(function(e){
+        e.stopPropagation();
+        $('.btn-add-location-home').css('display','none');
+        $('#edit-location-home-content').removeClass('d-none');
+        $('#location-home-content').addClass('d-none');
+        $('.btn-back-location-home').css('display','block');
+        $('.btn-edit-location-cancel').removeClass('d-none');
+    });
+    $('.btn-back-location-home').click(function(){
+        $('#add-location-home-content').addClass('d-none');
+        $('#location-home-content').removeClass('d-none');
+        $(this).css('display','none');
+        $('.btn-add-location-home').css('display','block');
+        $('.btn-add-location-cancel').removeClass('d-none');
+        $('#edit-location-home-content').addClass('d-none');
+    });
+    $('.btn-add-location-cancel').click(function(){
+        $('.btn-back-location-home').addClass('d-none');
+        $('#add-location-home-content').addClass('d-none');
+        $('#location-home-content').removeClass('d-none');
+        $('.btn-add-location-home').css('display','block');
+    });
+    $('.btn-edit-location-cancel').click(function(){
+        $('.btn-back-location-home').css('display','block');
+        $('#edit-location-home-content').addClass('d-none');
+        $('#location-home-content').removeClass('d-none');
+        $('.btn-add-location-home').css('display','block');
+    });
+});
+
+
+$(function(){
+ 
+  $('.delete-location').click(function(e){
+      console.log(e);
+        e.preventDefault();
+        e.stopPropagation();
+        enroll_location = $('.enroll-location').val();
+        LocationId= parseInt($(this).attr('data-id'));
+        enroll_location = JSON.parse(enroll_location);
+        var checkDelete;
+        for(var i=0; i < enroll_location.length; i++){
+            if(enroll_location[i]['location_id'] == LocationId){
+                checkDelete = true;
+            }
+        }
+        const url = $(this).attr('href');
+        // const url = $('.url-location-delete').val();
+        console.log(url);
+        if(checkDelete){
+          swal({
+              title: 'Are you sure?',
+              text: 'There are the devices in this location and those devices will be permanantly deleted!',
+              icon: 'warning',
+              buttons: ["Cancel", "Yes!"],
+          }).then(function(value) {
+              if (value) {
+                window.location.href = url;
+              }
+          });
+        }else if(!checkDelete){
+          swal({
+            title: 'Are you sure?',
+            text: 'This location will be permanantly deleted!',
+            icon: 'warning',
+            buttons: ["Cancel", "Yes!"],
+          }).then(function(value) {
+              if (value) {
+                window.location.href = url;
+              }
+          });
+        }
+  });
+  $(function() {
+    $('.schedule-active-button').bootstrapToggle({
+      on: 'ON',
+      off: 'OFF'
+    });
+    // $('.schedule-active-button').change(function(){
+    //    alert("ok");
+    // })
+  })
+})
+// Device js
+$(function () {
+    $('#getTime').datetimepicker({
+        format: 'LT',
+        icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                }
+    });
+    $('#getDate').datetimepicker({
+        // format: 'LD'
+        viewMode: 'years',
+        format: 'DD/MM/YYYY'
+    });
+});
+$(function(){
+    $('.btn-set-schedule').click(function(){
+        $('#add-schedule-device-content').removeClass('d-none');
+        $('.schedule-list').addClass('d-none');
+    });
+    $('.btn-set-schedule-cancel').click(function(){
+        $('.schedule-list').removeClass('d-none');
+        $('#add-schedule-device-content').addClass('d-none');
+    });
+});
+
+$(function(){
+    $('.select-type-schedule').each(function(){
+      $(this).on('click', function(){
+          var checkType = $('input[name=repeat-schedule]:checked').val();
+          // alert(checkType);
+          checkType = parseInt(checkType);
+          if(checkType == 1){
+              $('.daily-schedule').removeClass('d-none');
+              $('.getDate').addClass('d-none');
+          }else if(checkType == 2){
+              $('.daily-schedule').addClass('d-none');
+              $('.getDate').removeClass('d-none');
+          }else if(checkType ==3){
+              $('.daily-schedule').addClass('d-none');
+              $('.getDate').removeClass('d-none');
+              $('#getDate').datetimepicker({
+                  viewMode: 'years',
+                  format: 'DD/MM'
+              });
+          }else if(checkType == 0){
+              $('.daily-schedule').addClass('d-none');
+              $('.getDate').removeClass('d-none');
+              $('#getDate').datetimepicker({
+                  // format: 'LD'
+                  viewMode: 'years',
+                  format: 'DD/MM/YYYY'
+              });
+          }
+      });
+    });
+});
+
+$(function(){
+  $('.btn-info-setting').click(function(){
+    $('#info-device-content').removeClass('d-none');
+    $('#setting-device-content').addClass('d-none');
+    $('.btn-info-setting').addClass('d-none');
+    $('.btn-setting').addClass('d-none');
+  });
+  $('.btn-setting').click(function(){
+    $('#info-device-content').addClass('d-none');
+    $('#setting-device-content').removeClass('d-none');
+    $('.btn-info-setting').addClass('d-none');
+    $('.btn-setting').addClass('d-none');
+  });
+  $('.btn-info-back').click(function(){
+    $('#info-device-content').addClass('d-none');
+    $('#setting-device-content').addClass('d-none');
+    $('.btn-setting-device').removeClass('d-none');
+    $('.btn-info-setting').removeClass('d-none');
+    $('.btn-setting').removeClass('d-none');
+  }); 
+  $('.btn-back-setting-device').click(function(){
+    $('#info-device-content').addClass('d-none');
+    $('#setting-device-content').addClass('d-none');
+    $('.btn-setting-device').removeClass('d-none');
+    $('.btn-info-setting').removeClass('d-none');
+    $('.btn-setting').removeClass('d-none');
+  });
+});
+
+// Edit Device
+// Display control device panel in right slider
+$(function(){
+  $('body').on('click','.device-home-box',function(){
+      event.preventDefault();
+      var id = $(this).attr('data-id');
+      $('.control-device-screen').removeClass('d-none');
+      $('.device-selected-by-location-home').addClass('d-none');
+      // alert(id);
+      // Get device info to editting
+      $('.edit-device-location-type').html('');
+      var urlEdit = 'device/edit/' + id;
+      console.log(urlEdit);
+      urlEdit = urlEdit.replace(':id', id);
+      urlUpdate = 'device/update/' + id;
+      locations = JSON.parse($('#locationsJson').val());
+      $.ajax({
+            url: urlEdit,
+            type: 'get',
+            dataType:'json',
+            success: function(response){
+                console.log(response);
+                var option='';
+                $('#edit-info-device-form').attr('action', urlUpdate);
+                $('#nickname_device').val(response['nickname_device']);
+                $('#ip-address').val(response['password']);
+                $('#password-device').val(response['ip_address']);
+                var location_id = response["location_id"];
+                for(var i=0; i< locations.length; i++){
+                    if(locations[i]['id'] == location_id){
+                      option += "<option value=" + locations[i]['id']+" selected>"+locations[i]['location_name']+"</option>";
+                    }else{
+                      option += "<option value=" + locations[i]['id']+">"+locations[i]['location_name']+"</option>";
+                    }
+                } 
+                $('#edit-device-location-type').append(option);
+            }
+      });
+  });
+});

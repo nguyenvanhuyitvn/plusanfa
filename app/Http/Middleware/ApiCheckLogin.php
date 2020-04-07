@@ -19,7 +19,7 @@ class ApiCheckLogin
         if (!session('token')) {
             return $next($request);
         }
-        return redirect()->route('users.index');
+        return redirect()->route('dashboard');
     }
 }
 

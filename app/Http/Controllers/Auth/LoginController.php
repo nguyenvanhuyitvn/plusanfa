@@ -11,6 +11,7 @@ use App\Exceptions\Handler;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Routing\Redirector;
+use App\Repositories\UserRepository;
 class LoginController extends Controller
 {
     /*
@@ -39,56 +40,22 @@ class LoginController extends Controller
      * @return void
      */
     protected $serviceURL;
-    public function __construct()
+    protected $user;
+    public function __construct(UserRepository $userRepo)
     {
         $this->serviceURL = config('api.url');
+        $this->user = $userRepo;
     }
     public function login(Request $request){
-        try{
-            $headers = [
-                'Content-Type' => 'application/json, multipart/form-data'
-            ];
-            $cookieJar = new CookieJar();
-            $client = new \GuzzleHttp\Client([
-                'headers'=> $headers,
-                'timeout' => 3
-            ]);
-            $url = "http://fuji.akb.vn:2102/api/login";
-        
-            $myBody['email'] = $request->email;
-            $myBody['password'] = $request->password;
-            $request = $client->post($url,  [
-                'form_params'=>$myBody,     
-                'cookies' => $cookieJar
-            ]);
-            if ($request->getStatusCode() == 200) {
-                $response = $request->getBody()->getContents();
-                $data = collect(\json_decode($response))->toArray();
-                $session = session()->put('token',  $data['success']->token);
-                return redirect()->route('users.index');
-            } else {
-                return "Oops!";
-            }
-            
-        }catch (\Exception $exception) {
-            return 'Caught exception: '. $exception->getMessage();
+        $data = $this->user->login($request);
+        if($data){
+            return redirect()->route('dashboard');
+        }else{
+            return redirect()->route('login');
         }
     }
     public function logout(){
-        $headers = [
-            'Content-Type' => 'application/json, multipart/form-data',
-            'Authorization' => 'Bearer ' . session('token'),
-        ];
-        $client = new \GuzzleHttp\Client([
-            'headers'=> $headers,
-            'timeout' => 3
-        ]);
-        $url = $this->serviceURL."/logout";
-        $myBody['token_push'] = session('token');
-        $request = $client->post($url,  [
-            'form_params'=>$myBody
-        ]);
-        if ($request->getStatusCode() == 200) {
+        if ($this->user->logout()) {
             session()->flush();	
             return redirect()->route('login');
         } else {

@@ -7,10 +7,18 @@
     <div class="flexbox align-items-center px-20" data-overlay="4">
       <div class="flexbox align-items-center mr-auto">
         <a href="#">
-          <img class="avatar avatar-xl avatar-bordered" src="{{$data['avatar']}}" alt="">
+          @if ($data['avatar'])
+              <img class="avatar avatar-xl avatar-bordered" src="{{ $data['avatar'] }}" alt="" width="50px" height="50px" srcset="">
+          @else
+              <img class="avatar avatar-xl avatar-bordered" src="{{ asset('images/avatar/no-avatar.png')}}" alt="" width="50px" height="50px" srcset="">
+          @endif
         </a>
         <div class="pl-10 d-none d-md-block">
-          <h5 class="mb-0"><a class="hover-primary text-white" href="#">{{$data['full_name']}}</a></h5>
+          @if ($data['full_name'])
+            <h5 class="mb-0"><a class="hover-primary text-white" href="#">{{$data['full_name']}}</a></h5>
+          @else   
+            <h5 class="mb-0"><a class="hover-primary text-white" href="#">{{$data['user_name']}}</a></h5>
+          @endif
           <span>({{$data['user_name']}})</span>
         </div>
       </div>
