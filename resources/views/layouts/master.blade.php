@@ -30,7 +30,10 @@
   <link rel="stylesheet" href="{{asset('assets/vendor_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css')}}">
   <link rel="stylesheet" href="{{asset('assets/vendor_components/bootstrap-toggle/toggle.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/vendor_components/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css')}}">
+<<<<<<< HEAD
   {{-- <link rel="stylesheet" href="{{asset('assets/vendor_components/sweetalert-2/sweetalert2.min.css')}}"> --}}
+=======
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
 	
 	<!-- theme style -->
 	<link rel="stylesheet" href="{{asset('css/master_style.css')}}">
@@ -46,7 +49,12 @@
   <script src="{{asset('assets/vendor_components/fontawesome-5/js/fontawesome.min.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
   
+<<<<<<< HEAD
 	<![endif]-->   
+=======
+	<![endif]-->
+     
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
   </head>
 
 <body class="hold-transition skin-purple-light sidebar-mini fixed">
@@ -286,7 +294,10 @@
   <div class="control-sidebar-bg"></div>
   
 </div>
+<<<<<<< HEAD
  <script src="{{asset('js/app.js')}}"></script>
+=======
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
  <script src="{{asset('assets/vendor_components/moment/min/moment.min.js')}}"></script>
 	<!-- jQuery 3 -->
 	<script src="{{asset('assets/vendor_components/jquery-3.3.1/jquery-3.3.1.js')}}"></script>
@@ -316,7 +327,10 @@
   <script src="{{asset('assets/vendor_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js')}}"></script>
  
   <script src="{{asset('assets/vendor_components/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
+<<<<<<< HEAD
   {{-- <script src="{{asset('assets/vendor_components/sweetalert-2/sweetalert2.all.min.js')}}"></script> --}}
+=======
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
 	<!-- SoftPro admin App -->
   <script src="{{asset('js/template.js')}}"></script>
 	

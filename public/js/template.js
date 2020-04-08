@@ -1394,8 +1394,13 @@ $(function(){
         console.log(url);
         if(checkDelete){
           swal({
+<<<<<<< HEAD
               title: 'Bạn có chắc chắn muốn xóa?',
               text: 'Khu vực này đã có thiết bị được cài đặt. Bạn vẫn muốn xóa?',
+=======
+              title: 'Are you sure?',
+              text: 'There are the devices in this location and those devices will be permanantly deleted!',
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
               icon: 'warning',
               buttons: ["Cancel", "Yes!"],
           }).then(function(value) {
@@ -1405,8 +1410,13 @@ $(function(){
           });
         }else if(!checkDelete){
           swal({
+<<<<<<< HEAD
             title: 'Bạn có chắc chắn muốn xóa?',
             text: 'Khu vực này sẽ bị xóa!',
+=======
+            title: 'Are you sure?',
+            text: 'This location will be permanantly deleted!',
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
             icon: 'warning',
             buttons: ["Cancel", "Yes!"],
           }).then(function(value) {
@@ -1526,6 +1536,7 @@ $(function(){
       // alert(id);
       // Get device info to editting
       $('.edit-device-location-type').html('');
+<<<<<<< HEAD
       // Delete device
         var urlDel = $('.btn-delete-device-item').attr('href');
         urlDel = urlDel.split("/");
@@ -1561,6 +1572,10 @@ $(function(){
 
       // Edit Device
       var urlEdit = 'device/edit/' + id;
+=======
+      var urlEdit = 'device/edit/' + id;
+      console.log(urlEdit);
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
       urlEdit = urlEdit.replace(':id', id);
       urlUpdate = 'device/update/' + id;
       locations = JSON.parse($('#locationsJson').val());
@@ -1569,7 +1584,11 @@ $(function(){
             type: 'get',
             dataType:'json',
             success: function(response){
+<<<<<<< HEAD
                 // console.log(response);
+=======
+                console.log(response);
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
                 var option='';
                 $('#edit-info-device-form').attr('action', urlUpdate);
                 $('#nickname_device').val(response['nickname_device']);
@@ -1586,6 +1605,7 @@ $(function(){
                 $('#edit-device-location-type').append(option);
             }
       });
+<<<<<<< HEAD
       // Schedule Device
       var urlSchedule = 'device/getSchedule/' + id;
       urlSchedule = urlSchedule.replace(':id', id);
@@ -1662,5 +1682,7 @@ $(function(){
                console.log(bin); 
             }
       });
+=======
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
   });
 });

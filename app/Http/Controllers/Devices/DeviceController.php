@@ -79,6 +79,7 @@ class DeviceController extends Controller
          return $Enroll_location;
     }
     public function destroy(Request $request, $id){
+<<<<<<< HEAD
         try{
             $guzzle = new ConfigGuzzle();
             $client= $guzzle->initialGuzzle(3,'multipart/form-data');
@@ -86,11 +87,22 @@ class DeviceController extends Controller
             $request = $client->get($url);
             if ($request->getStatusCode() == 200) {
                 return redirect()->route('dashboard')->with('notify', 'Bạn đã xóa thiết bị thành công!');
+=======
+        dd(1); exit();
+        try{
+            $guzzle = new ConfigGuzzle();
+            $client= $guzzle->initialGuzzle(3,'multipart/form-data');
+            $url = $guzzle->getUrlApi('deletelocation')."/".$id;
+            $request = $client->get($url);
+            if ($request->getStatusCode() == 200) {
+                return redirect()->route('location.index');
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
             } else {
                 return "Oops!";
             }
             
         }catch (\Exception $exception) {
+<<<<<<< HEAD
         	return redirect()->route('dashboard')->with('notify', 'Thiết bị chưa được xóa!');
             // return 'Caught exception: '. $exception->getMessage();
         }
@@ -113,6 +125,10 @@ class DeviceController extends Controller
             return $schedules;
         }catch(\Exception $exception){
             return redirect()->back()->with('notify', 'Lỗi cập nhật lịch hẹn thiết bị!' . $exception->getMessage());
+=======
+            logger($exception);
+            return 'Caught exception: '. $exception->getMessage();
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
         }
     }
 }

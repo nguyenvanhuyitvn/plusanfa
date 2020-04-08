@@ -55,6 +55,7 @@ class DeviceRepository implements RepositoryInterface {
             return false;
         }
     }
+<<<<<<< HEAD
     public function updateHistory($id){
         $guzzle = new ConfigGuzzle();
         $client= $guzzle->initialGuzzle(3,'application/json, multipart/form-data');
@@ -78,6 +79,9 @@ class DeviceRepository implements RepositoryInterface {
         }
     }
     protected function getFormField(Request $request, $data){
+=======
+     protected function getFormField(Request $request, $data){
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
         $request->location_id != null ? ( $location_id= ['name' => 'location_id', 'contents' => $request->location_id]) : ($location_id = []);
         $request->nickname_device != null ? ( $nickname_device= ['name' => 'nickname_device', 'contents' => $request->nickname_device]) : ($nickname_device = []);
         $data = [

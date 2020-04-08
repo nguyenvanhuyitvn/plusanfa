@@ -16191,6 +16191,7 @@ hr {
 .btn-pink{
     background: #f936e3;
 }
+<<<<<<< HEAD
 
 
 .cover-wrap {
@@ -16213,3 +16214,5 @@ input.checkbox-control:checked ~ label {
     display: unset;
     display: none !important;
 }
+=======
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9

@@ -302,6 +302,7 @@ Trang chủ
                                         <h3>Điều khiển:</h3>
                                         <div class="clearfix d-flex flex-row justify-content-center">
                                             <div class="item-button">
+<<<<<<< HEAD
                                               <input type="checkbox" id="checkbox-control-3" class="checkbox-control">
                                               <label class="cover-wrap" for="checkbox-control-3"><i class="fas fa-power-off"></i></label>
                                               <p>13:29:16</p>
@@ -314,6 +315,17 @@ Trang chủ
                                             <div class="item-button">
                                               <input type="checkbox" id="checkbox-control-1" class="checkbox-control">
                                               <label class="cover-wrap" for="checkbox-control-1"><i class="fas fa-power-off"></i></label>
+=======
+                                              <button class="btn btn-social-icon btn-circle btn-secondary" style="margin: 0 10px;"><i class="fas fa-power-off"></i></button>
+                                              <p>13:29:16</p>
+                                            </div>
+                                            <div class="item-button">
+                                              <button class="btn btn-social-icon btn-circle btn-warning" style="margin: 0 10px;"><i class="fas fa-power-off"></i></button>
+                                              <p>13:29:16</p>
+                                            </div>
+                                            <div class="item-button">
+                                              <button class="btn btn-social-icon btn-circle btn-warning" style="margin: 0 10px;"><i class="fas fa-power-off"></i></button>
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
                                               <p>13:29:16</p>
                                             </div>
                                         </div>
@@ -326,11 +338,18 @@ Trang chủ
                                           </div>
                                         </div>
                                       </div>
+<<<<<<< HEAD
                                       <div class="pad" id="app">
                                         <h3>Lịch sử: </h3>
                                        {{--  <div class="clearfix" style="padding-left: 30px;"> --}}
                                             <current-state-component :messages="messages"></current-state-component>
                                             {{-- <div class="history-row">
+=======
+                                      <div class="pad">
+                                        <h3>Lịch sử: </h3>
+                                        <div class="clearfix" style="padding-left: 30px;">
+                                            <div class="history-row">
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
                                                 <span class="history-time">06/04/2020 15:02 CH</span> <span class="history-duration">00h00p07s</span> <span class="history-code">Cổng 1</span>
                                             </div> 
                                             <div class="history-row">
@@ -338,12 +357,21 @@ Trang chủ
                                             </div> 
                                             <div class="history-row">
                                                 <span class="history-time">06/04/2020 15:02 CH</span> <span class="history-duration">00h00p07s</span> <span class="history-code">Cổng 1</span>
+<<<<<<< HEAD
                                             </div> --}}
                                         {{-- </div> --}}
                                       </div>
                                       <div class="pad" >
                                         <h3>Lịch tiếp theo: </h3>
                                         <div class="clear-fix incomming-schedule-device" style="padding-left: 30px;">
+=======
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="pad">
+                                        <h3>Lịch sử: </h3>
+                                        <div class="clear-fix" style="padding-left: 30px;">
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
                                             Chưa có lịch
                                         </div>
                                       </div>
@@ -718,10 +746,17 @@ Trang chủ
                                     <div class="tab-pane pad" id="update-device" role="tabpanel">
                                         <div class="btn-update-delete-device d-flex flex-row justify-content-around mt-5">
                                           <div class="btn-update-status">
+<<<<<<< HEAD
                                               <a href="{{ route('device.update.history',['id'=>1])}}" type="button" class="btn btn-outline btn-success btn-update-status-item mb-5">Cập nhật trạng thái</a>
                                           </div>
                                           <div class="btn-delete-device">
                                               <a href="{{ route('device.delete',['id'=>1])}}" type="button" data-id="" class="btn btn-outline btn-danger btn-delete-device-item mb-5" id="">Xóa thiết bị</a>
+=======
+                                              <a href="#" type="button" class="btn btn-outline btn-success mb-5">Cập nhật trạng thái</a>
+                                          </div>
+                                          <div class="btn-delete-device">
+                                              <a href="#" type="button" class="btn btn-outline btn-danger mb-5">Xóa thiết bị</a>
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
                                           </div>
                                         </div>
                                     </div>

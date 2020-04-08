@@ -77,12 +77,29 @@ class HomeController extends Controller
                     }
                 }
             }
+<<<<<<< HEAD
+=======
+            // // Pass Location into Enroll
+            // foreach($getEnroll as $key => $er){
+            //     foreach($locations as $lc_k => $lc_v){
+            //         if($getEnroll[$key]['location_id'] == $locations[$lc_k]['id']){
+            //             $getEnroll[$key]['location_id'] = $locations[$lc_k];
+            //         }
+            //     }
+            // }
+            // // Get Enroll location for notice delete
+            // $Enroll_location=[];
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
             $Enroll_location = json_encode($getEnroll);
             foreach ($getEnroll as $key => $value) {
                 if($value['location_id'] == $locations[0]['id']){
                     $displayDeviceFirst = $getEnroll[$key];
                 }
             }
+<<<<<<< HEAD
+=======
+            // dd($displayDeviceFirst);
+>>>>>>> 86a57651dcb8ea41b588d9a1a10007c82bc3b5f9
             return view('home', compact('getEnroll','Enroll_location', 'locations','data','locationType','displayDeviceFirst','locationTypeJson', 'locationsJson'));
         }catch (\Exception $exception) {
             return 'Caught exception: '. $exception->getMessage();
