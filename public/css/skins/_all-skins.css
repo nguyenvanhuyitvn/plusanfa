@@ -606,6 +606,8 @@ Project:	SoftPro admin - Responsive Admin Template
   color: #fff;
   border-top-left-radius: 2px;
   border-top-right-radius: 0;
+
+
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 2px;
 }
@@ -1432,7 +1434,7 @@ Project:	SoftPro admin - Responsive Admin Template
 /*---Skin: Purple light---*/
 /*---light sidebar---*/
 .skin-purple-light .main-header {
-    background: #840fb5;
+    background: #04A9F5;
 }
 .skin-purple-light .main-header .navbar .nav > li > a {
   color: #ffffff;
@@ -1449,10 +1451,10 @@ Project:	SoftPro admin - Responsive Admin Template
   color: #f6f6f6;
 }
 .skin-purple-light .main-header .navbar .sidebar-toggle {
-  color: #ffffff;
+  color: #000000;
 }
 .skin-purple-light .main-header .navbar .sidebar-toggle:hover {
-  color: #f6f6f6;
+  color: #000000;
   background: rgba(0, 0, 0, 0.1);
 }
 .skin-purple-light .main-header .navbar .sidebar-toggle {

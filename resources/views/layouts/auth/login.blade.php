@@ -43,12 +43,9 @@
                         
                 <div class="col-lg-5 col-md-8 col-12">
                     <div class="content-top-agile bg-img" style="background-image: url({{asset('images/gallery/full/6.jpg')}})" data-overlay="4">
-                        <h2>Login With</h2>
+                        <h2>Login To</h2>
                         <p class="gap-items-2 mb-20">
-                            <a class="btn btn-social-icon btn-outline btn-white" href="#"><i class="fa fa-facebook"></i></a>
-                            <a class="btn btn-social-icon btn-outline btn-white" href="#"><i class="fa fa-twitter"></i></a>
-                            <a class="btn btn-social-icon btn-outline btn-white" href="#"><i class="fa fa-google-plus"></i></a>
-                            <a class="btn btn-social-icon btn-outline btn-white" href="#"><i class="fa fa-instagram"></i></a>
+                            <h1 class="text-white">PLUS ANFA</h1>
                         </p>
                     </div>
                     <div class="p-40 mt-10 bg-white content-bottom box-shadowed">
@@ -59,7 +56,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-danger border-danger"><i class="ti-user"></i></span>
                                     </div>
-                                    <input type="text" id='email' name='email' class="form-control  @error('email') is-invalid @enderror" placeholder="{{ __('E-Mail Address') }}">
+                                    <input type="text" id='email' name='email' class="form-control  @error('email') is-invalid @enderror" placeholder="{{ __('E-Mail Address') }}" value="{{old('email')}}">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -90,7 +87,7 @@
                                 <!-- /.col -->
                                 <div class="col-6">
                                 <div class="fog-pwd text-right">
-                                    <a href="javascript:void(0)"><i class="fa fa-lock"></i> @lang('lang.common.forgot_password')</a><br>
+                                    <a href="{{route('users.reset.password')}}"><i class="fa fa-lock"></i> @lang('lang.common.forgot_password')</a><br>
                                 </div>
                                 </div>
                                 <!-- /.col -->
